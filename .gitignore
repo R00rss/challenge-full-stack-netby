@@ -4,3 +4,4 @@ obj/
 wwwroot/
 node_modules/
 dist/
+.DS_Store
