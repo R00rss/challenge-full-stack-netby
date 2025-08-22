@@ -1,24 +1,58 @@
-# Sistema de Inventario
+# 📦 Sistema de Inventario
 
-Sistema de gestión de inventario desarrollado con arquitectura de microservicios, implementando Clean Architecture tanto en el backend como en el frontend.
+Sistema de gestión de inventario desarrollado como **prueba técnica full stack**.  
+El objetivo es demostrar experiencia en **arquitectura de microservicios**, **Clean Architecture**, integración **Dockerizada** y un frontend moderno con **Angular + TailwindCSS**.
 
-## Arquitectura del Proyecto
+Incluye:
+- Backend en **.NET 9** con microservicios independientes
+- Comunicación entre servicios vía **gRPC**
+- **Backend for Frontend (BFF)** que expone APIs REST
+- Frontend en **Angular 20 + TailwindCSS**
+- SQL Server dockerizado con inicialización automática
 
-### Backend (.NET 9)
-- **Arquitectura**: Clean Architecture con microservicios
-- **Comunicación entre microservicios**: gRPC
-- **Exposición de datos al frontend**: REST API mediante Backend for Frontend (BFF)
-- **Base de datos**: SQL Server
-- **Infraestructura**: Docker y Docker Compose
+---
 
-### Frontend (Angular 20)
-- **Arquitectura**: Clean Architecture
-- **Estilos**: TailwindCSS y CSS puro (sin bibliotecas de componentes adicionales)
+## 📸 Capturas de pantalla
 
-### Microservicios
-1. **Product Service**: Gestión de productos
-2. **Transaction Service**: Gestión de transacciones de inventario
-3. **Inventory BFF (InventoryService)**: Backend for Frontend que expone APIs REST al cliente
+### Modulo Producto
+#### Inicio
+![Inicio](https://raw.githubusercontent.com/R00rss//challenge-full-stack-netby/main/assets/inicio.png)
+
+#### Tabla producto
+![Tabla producto](https://raw.githubusercontent.com/R00rss//challenge-full-stack-netby/main/assets/productos.png)
+
+#### Crear producto
+![Crear producto](https://raw.githubusercontent.com/R00rss//challenge-full-stack-netby/main/assets/crear_producto.png)
+
+#### Editar producto
+![Editar producto](https://raw.githubusercontent.com/R00rss//challenge-full-stack-netby/main/assets/editar_producto.png)
+
+#### Eliminar producto
+![Eliminar producto](https://raw.githubusercontent.com/R00rss//challenge-full-stack-netby/main/assets/eliminar_producto.png)
+
+### Modulo Transacción
+
+#### Tabla transacción
+![Tabla transacción](https://raw.githubusercontent.com/R00rss//challenge-full-stack-netby/main/assets/transacciones.png)
+
+#### Crear transacción
+![Crear transacción](https://raw.githubusercontent.com/R00rss//challenge-full-stack-netby/main/assets/crear_transaccion.png)
+
+#### Editar transacción
+![Editar transacción](https://raw.githubusercontent.com/R00rss//challenge-full-stack-netby/main/assets/editar_transaccion.png)
+
+#### Eliminar transacción
+![Eliminar transacción](https://raw.githubusercontent.com/R00rss//challenge-full-stack-netby/main/assets/eliminar_transaccion.png)
+
+## 🎯 Enfoque de la solución
+
+Este proyecto busca demostrar:
+- Aplicación de **Clean Architecture** en frontend y backend.
+- Separación de dominios con **microservicios desacoplados**.
+- Comunicación eficiente mediante **gRPC**.
+- Implementación de **Backend for Frontend** para facilitar la integración cliente-servidor.
+- Infraestructura completamente **dockerizada** lista para despliegue en cualquier entorno.
+
 
 ## Requisitos
 
@@ -98,7 +132,6 @@ docker-compose down
 ### Detener y eliminar volúmenes (reset completo):
 ```bash
 docker-compose down -v --rmi all --remove-orphans
-
 ```
 
 ## Ejecución del Frontend
@@ -149,12 +182,3 @@ Estas bases de datos se crean e inicializan automáticamente cuando se ejecuta `
 - Angular 20
 - TailwindCSS
 - CSS puro
-
-## Características Técnicas
-
-- **Clean Architecture**: Implementada tanto en backend como frontend para mejor mantenibilidad y testabilidad
-- **Microservicios**: Separación de responsabilidades entre Product Service y Transaction Service
-- **gRPC**: Comunicación eficiente entre microservicios
-- **Backend for Frontend**: Capa que adapta y expone los datos de los microservicios al cliente
-- **Containerización**: Infraestructura completamente dockerizada para fácil despliegue
-- **Health Checks**: Verificación automática del estado de los servicios
