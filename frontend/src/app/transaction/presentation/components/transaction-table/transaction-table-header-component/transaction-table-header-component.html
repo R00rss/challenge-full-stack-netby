@@ -1,0 +1,20 @@
+<thead class="transaction-header-container">
+  <tr class="transaction-header-item">
+    @for (header of headers; track header) {
+    <th>
+      <span>{{ header.name }}</span>
+      @if(header.canSort){
+      <button (click)="handleClickSortColumn(header)" class="tooltip-button">
+        @if(header.sortDirection===null){
+        <info-icon-component />
+        } @if(header.sortDirection==="asc"){
+        <sort-up-icon-component />
+        } @if(header.sortDirection==="desc"){
+        <sort-down-icon-component />
+        }
+      </button>
+      }
+    </th>
+    }
+  </tr>
+</thead>

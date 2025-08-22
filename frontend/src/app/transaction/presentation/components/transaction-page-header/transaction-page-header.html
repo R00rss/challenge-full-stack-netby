@@ -1,0 +1,11 @@
+<header>
+  <h1 class="text-4xl font-semibold text-primary">Gestión de Transacciones</h1>
+  <section class="transaction-page-header">
+    <transaction-search-component (searchChange)="onFilterChange($event)" />
+    <button
+    class="button-create bg-tertiary text-light"
+    (click)="navigateToCreateTransactionPage()" >
+      Agregar
+    </button>
+  </section>
+</header>

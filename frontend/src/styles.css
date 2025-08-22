@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+/* css variables */
+:root {
+  --color-secondary: #1798d5;
+  --color-primary: #1d4381;
+  --color-tertiary: #d94a23;
+
+  --color-light: #ffffff;
+  --color-dark: #323236;
+
+  --color-gray-light: #f9fafc;
+  --color-gray-medium: #edeff5;
+  --color-gray-dark: #919196;
+}
+
+@theme {
+  --color-secondary: #1798d5;
+  --color-primary: #1d4381;
+  --color-tertiary: #d94a23;
+
+  --color-light: #ffffff;
+  --color-dark: #323236;
+
+  --color-gray-light: #f9fafc;
+  --color-gray-medium: #edeff5;
+  --color-gray-dark: #919196;
+  --font-sans: "Nunito Sans Variable", sans-serif;
+}

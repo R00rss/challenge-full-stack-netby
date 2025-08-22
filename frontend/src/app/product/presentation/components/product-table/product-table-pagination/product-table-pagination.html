@@ -1,0 +1,85 @@
+<section class="pagination-container">
+  <span class="item-count">
+    {{ totalItems }} {{ totalItems === 1 ? "Resultado" : "Resultados" }}
+  </span>
+
+  <div class="combo-box-container" (click)="closeDropdown()">
+    <div class="combo-box" (click)="stopPropagation($event)">
+      <div class="combo-box-selected" (click)="toggleDropdown()">
+        <span class="selected-value">{{ pageSize }}</span>
+        <span class="arrow" [class.arrow-up]="isDropdownOpen">▼</span>
+      </div>
+      <ul class="combo-box-options" [class.show]="isDropdownOpen">
+        @for (option of pageSizeOptions; track option) {
+        <li
+          class="combo-box-option"
+          [class.selected]="option === pageSize"
+          (click)="handlePageSizeChange(option)"
+        >
+          {{ option }}
+        </li>
+        }
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-navigation">
+    <button
+      class="page-button prev-button"
+      [disabled]="!hasPreviousPage"
+      (click)="handlePreviousPage()"
+      title="Página anterior"
+    >
+      ‹
+    </button>
+
+    @if (shouldShowFirstPage) {
+      <button
+        class="page-button"
+        (click)="handlePageChange(1)"
+      >
+        1
+      </button>
+    }
+
+    @if (shouldShowFirstEllipsis) {
+      <span class="ellipsis">...</span>
+    }
+
+    @for (page of visiblePages; track page) {
+      <button
+        class="page-button"
+        [class.active]="page === currentPage"
+        (click)="handlePageChange(page)"
+      >
+        {{ page }}
+      </button>
+    }
+
+    @if (shouldShowLastEllipsis) {
+      <span class="ellipsis">...</span>
+    }
+
+    @if (shouldShowLastPage) {
+      <button
+        class="page-button"
+        (click)="handlePageChange(totalPages)"
+      >
+        {{ totalPages }}
+      </button>
+    }
+
+    <button
+      class="page-button next-button"
+      [disabled]="!hasNextPage"
+      (click)="handleNextPage()"
+      title="Página siguiente"
+    >
+      ›
+    </button>
+  </div>
+
+  <span class="page-info">
+    Página {{ currentPage }} de {{ totalPages }}
+  </span>
+</section>

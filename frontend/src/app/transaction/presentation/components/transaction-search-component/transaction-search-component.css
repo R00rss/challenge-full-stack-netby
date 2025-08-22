@@ -1,0 +1,7 @@
+.transaction-search input {
+  width: 250px;
+  padding: 12px;
+  border-radius: 5px;
+  border: solid 2px var(--color-gray-medium);
+  background-color: var(--color-light);
+}

@@ -1,0 +1,32 @@
+<form
+  class="product-form-wrapper"
+  [formGroup]="productForm"
+  (ngSubmit)="onSubmit()"
+>
+  <h2>{{ formType }} producto</h2>
+  <section class="product-form-groups-container">
+    @for(formKey of formKeys;track formKey){
+    <div class="product-form-group">
+      <label for="{{ formKey }}">{{ getNameByIdItemForm(formKey) }}</label>
+      <input
+        type="{{ getTypeByIdItemForm(formKey) }}"
+        id="{{ formKey }}"
+        formControlName="{{ formKey }}"
+        [class.error]="isFieldInvalid(formKey)"
+      />
+      @if(isFieldValidating(formKey)){
+      <div class="validating-message">Validando...</div>
+      }@else{ @if(isFieldInvalid(formKey)){
+      <div class="error-message">
+        {{ getErrorMessage(formKey) }}
+      </div>
+      } }
+    </div>
+    }
+  </section>
+
+  <div class="product-form-buttons">
+    <button type="button" (click)="onReset()">Reiniciar</button>
+    <button type="submit" [disabled]="isSubmitDisabled()">Enviar</button>
+  </div>
+</form>

@@ -1,0 +1,18 @@
+@if(transaction){
+<section class="modal-wrapper" [class.hidden]="!isOpen">
+  <section class="modal">
+    <header>
+      <h1>
+        ¿Estas seguro de eliminar el transacción "<span>{{
+          transaction.detail
+        }}</span
+        >"?
+      </h1>
+    </header>
+    <main>
+      <button (click)="handleCancel()">Cancelar</button>
+      <button (click)="handleConfirm()">Confirmar</button>
+    </main>
+  </section>
+</section>
+}

@@ -1,0 +1,30 @@
+<section class="product-table-wrapper">
+  <section class="product-table-container">
+    <section class="product-table-content">
+      <product-table-header-component />
+      @if(isLoadingProducts){
+      <product-table-skeleton-component />
+      } @if(!isLoadingProducts && !thereAreNotProducts){
+      <product-table-body-component
+        [products]="products"
+        [options]="options"
+        (onOptionClick)="handleOptionClick($event)"
+      />
+      } @if(!isLoadingProducts && thereAreNotProducts){
+      <div class="no-products-message">No se encontraron productos</div>
+      }
+    </section>
+  </section>
+  <product-table-pagination
+    [pageSize]="pageSize"
+    [totalItems]="totalItems"
+    [currentPage]="currentPage"
+    [totalPages]="totalPages"
+    [hasNextPage]="hasNextPage"
+    [hasPreviousPage]="hasPreviousPage"
+    (onPageSizeChange)="handlePageSizeChange($event)"
+    (onPageChange)="handlePageChange($event)"
+    (onPageNext)="handlePageNext()"
+    (onPagePrevious)="handlePagePrevious()"
+  />
+</section>

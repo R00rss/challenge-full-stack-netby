@@ -1,0 +1,11 @@
+<tbody class="product-list-container">
+  @for (product of skeletonProducts; track product) {
+  <tr class="product-list-item">
+    @for (column of numberOfColumns; track column) {
+    <td>
+      <span></span>
+    </td>
+    }
+  </tr>
+  }
+</tbody>

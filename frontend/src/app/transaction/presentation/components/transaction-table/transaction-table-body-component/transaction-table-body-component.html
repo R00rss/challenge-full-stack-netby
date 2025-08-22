@@ -1,0 +1,51 @@
+<tbody class="transaction-list-container">
+  @for (transaction of transactions; track transaction.id) {
+  <tr class="transaction-list-item">
+    <td>
+      <span>{{ transaction.transactionDate | date : "dd/MM/yyyy" }}</span>
+    </td>
+    <td>
+      <span>{{ transaction.transactionType }}</span>
+    </td>
+    <td>
+      <span>{{ handleCutText(transaction.productId, 10) }}</span>
+    </td>
+    <td>
+      <span>{{ transaction.quantity }}</span>
+    </td>
+    <td>
+      <span>{{ transaction.unitPrice }}</span>
+    </td>
+    <td>
+      <span>{{ transaction.totalPrice }}</span>
+    </td>
+    <td>
+      <span>{{handleCutText(transaction.detail, 15) }}</span>
+    </td>
+    <td
+      class="transaction-dots-container combo-box-container"
+      (click)="stopPropagation($event)"
+    >
+      <button
+        class="transaction-dots-button"
+        (click)="toggleDropdown(transaction.id)"
+      >
+        <three-dots-icon-component />
+      </button>
+      <ul
+        class="combo-box-options"
+        [class.show]="isDropdownSelected == transaction.id"
+      >
+        @for (option of options; track option.label) {
+        <li
+          class="combo-box-option"
+          (click)="handleOptionClick(option.operation, transaction)"
+        >
+          {{ option.label }}
+        </li>
+        }
+      </ul>
+    </td>
+  </tr>
+  }
+</tbody>

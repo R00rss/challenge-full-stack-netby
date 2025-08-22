@@ -1,0 +1,11 @@
+<header>
+  <h1 class="text-4xl font-semibold text-primary">Gestión de Productos</h1>
+  <section class="product-page-header">
+    <product-search-component (searchChange)="onFilterChange($event)" />
+    <button
+    class="button-create bg-tertiary text-light"
+    (click)="navigateToCreateProductPage()" >
+      Agregar
+    </button>
+  </section>
+</header>

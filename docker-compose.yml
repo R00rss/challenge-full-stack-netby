@@ -1,0 +1,179 @@
+volumes:
+  db_product_data:
+  db_transaction_data:
+
+services:
+  db_product:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    platform: linux/amd64
+    container_name: db_product
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=${SA_PASSWORD}
+      - MSSQL_PID=Developer
+    ports:
+      - "1433:1433"
+    volumes:
+      - db_product_data:/var/opt/mssql
+      - ./db/product:/scripts
+    restart: always
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P '${SA_PASSWORD}' -C -Q 'SELECT 1' || exit 1",
+        ]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 10s
+    networks:
+      - app-network
+
+  db_transaction:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    platform: linux/amd64
+    container_name: db_transaction
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=${SA_PASSWORD}
+      - MSSQL_PID=Developer
+    ports:
+      - "1434:1433"
+    volumes:
+      - db_transaction_data:/var/opt/mssql
+      - ./db/transaction:/scripts
+    restart: always
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P '${SA_PASSWORD}' -C -Q 'SELECT 1' || exit 1",
+        ]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 10s
+    networks:
+      - app-network
+
+  db_product_init:
+    container_name: db_product_init
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    platform: linux/amd64
+    volumes:
+      - ./db/product:/scripts
+    networks:
+      - app-network
+    environment:
+      - SA_PASSWORD=${SA_PASSWORD}
+    depends_on:
+      db_product:
+        condition: service_healthy
+    command: >
+      bash -c "
+      echo 'waiting SQL Server to be ready...';
+      sleep 10;
+      echo 'Executing initialization script for db_product...';
+      /opt/mssql-tools18/bin/sqlcmd -S db_product -U sa -P '${SA_PASSWORD}' -C -i /scripts/init.sql;
+      echo 'Script executed successfully for db_product';
+      "
+    restart: "no"
+
+  db_transaction_init:
+    container_name: db_transaction_init
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    platform: linux/amd64
+    volumes:
+      - ./db/transaction:/scripts
+    networks:
+      - app-network
+    environment:
+      - SA_PASSWORD=${SA_PASSWORD}
+    depends_on:
+      db_transaction:
+        condition: service_healthy
+    command: >
+      bash -c "
+      echo 'waiting SQL Server to be ready...';
+      sleep 10;
+      echo 'Executing initialization script for db_transaction...';
+      /opt/mssql-tools18/bin/sqlcmd -S db_transaction -U sa -P '${SA_PASSWORD}' -C -i /scripts/init.sql;
+      echo 'Script executed successfully for db_transaction';
+      "
+    restart: "no"
+
+  product-service:
+    container_name: product_service
+    build:
+      context: ./backend
+      dockerfile: ProductService/ProductService.API/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - ConnectionStrings__ConnectionString=Server=db_product;Database=ProductInventory;User Id=sa;Password=${SA_PASSWORD};TrustServerCertificate=True;
+    ports:
+      - "5001:80"
+    depends_on:
+      db_product_init:
+        condition: service_completed_successfully
+    networks:
+      - app-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  transaction-service:
+    container_name: transaction_service
+    build:
+      context: ./backend
+      dockerfile: TransactionService/TransactionService.API/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - ConnectionStrings__ConnectionString=Server=db_transaction;Database=TransactionInventory;User Id=sa;Password=${SA_PASSWORD};TrustServerCertificate=True;
+    ports:
+      - "5002:80"
+    depends_on:
+      db_transaction_init:
+        condition: service_completed_successfully
+    networks:
+      - app-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  inventory-bff:
+    container_name: inventory_bff
+    platform: linux/amd64
+    build:
+      context: ./backend
+      dockerfile: InventoryBFF/InventoryService/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - ConnectionStrings__ProductService=http://product-service:80
+      - ConnectionStrings__TransactionService=http://transaction-service:80
+    ports:
+      - "8080:80"
+    depends_on:
+      - product-service
+      - transaction-service
+    networks:
+      - app-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+networks:
+  app-network:
+    driver: bridge

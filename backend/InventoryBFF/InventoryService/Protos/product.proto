@@ -1,0 +1,87 @@
+syntax = "proto3";
+
+option csharp_namespace = "InventoryService";
+
+package productservice_grpc;
+
+service ProductServiceGRPC {
+  rpc GetProductById(GetProductByIdRequest) returns (ProductResponse);
+  rpc GetProductsPaged(GetProductsPagedRequest) returns (PagedProductsResponse);
+  rpc GetProductsWithSortAndSearch(GetProductsWithSortAndSearchRequest) returns (PagedProductsResponse);
+  rpc CreateProduct(CreateProductRequest) returns (ProductResponse);
+  rpc UpdateProduct(UpdateProductRequest) returns (ProductResponse);
+  rpc DeleteProduct(DeleteProductRequest) returns (DeleteProductResponse);
+}
+
+message Product {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  string category = 4;
+  string image = 5;
+  double price = 6;
+  int32 stock = 7;
+}
+
+message GetProductByIdRequest {
+  string id = 1;
+}
+
+message ProductResponse {
+  bool success = 1;
+  string error_message = 2;
+  Product product = 3;
+}
+
+message GetProductsPagedRequest {
+  int32 page = 1;
+  int32 page_size = 2;
+}
+
+message GetProductsWithSortAndSearchRequest {
+  int32 page = 1;
+  int32 page_size = 2;
+  string sort_column = 3;
+  string sort_direction = 4;
+  string search_term = 5;
+}
+
+message PagedProductsResponse {
+  bool success = 1;
+  string error_message = 2;
+  repeated Product products = 3;
+  int32 total_count = 4;
+  int32 page = 5;
+  int32 page_size = 6;
+  int32 total_pages = 7;
+  bool has_next_page = 8;
+  bool has_previous_page = 9;
+}
+
+message CreateProductRequest {
+  string name = 1;
+  string description = 2;
+  string category = 3;
+  string image = 4;
+  double price = 5;
+  int32 stock = 6;
+}
+
+message UpdateProductRequest {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  string category = 4;
+  string image = 5;
+  double price = 6;
+  int32 stock = 7;
+}
+
+message DeleteProductRequest {
+  string id = 1;
+}
+
+message DeleteProductResponse {
+  bool success = 1;
+  string error_message = 2;
+}

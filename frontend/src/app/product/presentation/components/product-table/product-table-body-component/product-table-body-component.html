@@ -1,0 +1,51 @@
+<tbody class="product-list-container">
+  @for (product of products; track product.id) {
+  <tr class="product-list-item">
+    <td class="product-logo-container">
+      <img
+        class="product-logo"
+        [src]="product.image || 'assets/default.png'"
+        [alt]="product.name + ' logo'"
+        loading="lazy"
+        (error)="onImageError($event)"
+      />
+    </td>
+    <td>
+      <span>{{ product.name }}</span>
+    </td>
+    <td>
+      <span>{{ product.description }}</span>
+    </td>
+    <td>
+      <span>{{ product.category }}</span>
+    </td>
+    <td>
+      <span>{{ product.price }}</span>
+    </td>
+    <td>
+      <span>{{ product.stock }}</span>
+    </td>
+    <td
+      class="product-dots-container combo-box-container"
+      (click)="stopPropagation($event)"
+    >
+      <button class="product-dots-button" (click)="toggleDropdown(product.id)">
+        <three-dots-icon-component />
+      </button>
+      <ul
+        class="combo-box-options"
+        [class.show]="isDropdownSelected == product.id"
+      >
+        @for (option of options; track option.label) {
+        <li
+          class="combo-box-option"
+          (click)="handleOptionClick(option.operation, product)"
+        >
+          {{ option.label }}
+        </li>
+        }
+      </ul>
+    </td>
+  </tr>
+  }
+</tbody>

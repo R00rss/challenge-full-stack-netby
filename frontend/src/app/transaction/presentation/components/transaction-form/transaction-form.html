@@ -1,0 +1,71 @@
+<form   
+  class="transaction-form-wrapper"   
+  [formGroup]="transactionForm"   
+  (ngSubmit)="onSubmit()"
+>   
+  <h2>{{ formType }} transacción</h2>   
+  <section class="transaction-form-groups-container">     
+    @for(formKey of formKeys; track formKey){     
+    <div class="transaction-form-group">       
+      <label for="{{ formKey }}">{{ getNameByIdItemForm(formKey) }}</label>       
+      @if(getTypeByIdItemForm(formKey) === "comboBoxTransactionType"){       
+      <select         
+        id="{{ formKey }}"         
+        formControlName="{{ formKey }}"         
+        [class.error]="isFieldInvalid(formKey)"
+        [attr.readonly]="isFieldReadonly(formKey) ? true : null"
+        [style.pointer-events]="isFieldReadonly(formKey) ? 'none' : 'auto'"
+        [style.background-color]="isFieldReadonly(formKey) ? '#f5f5f5' : 'white'"
+      >         
+        <option value="">Selecciona un tipo de transacción</option>         
+        @for(transactionType of transactionTypes; track transactionType.id){         
+        <option [value]="transactionType.id">           
+          {{ transactionType.name }}         
+        </option>         
+        }       
+      </select>       
+      }       
+      @if(getTypeByIdItemForm(formKey) === "comboBoxProduct"){       
+      <select         
+        id="{{ formKey }}"         
+        formControlName="{{ formKey }}"         
+        [class.error]="isFieldInvalid(formKey)"
+        [attr.readonly]="isFieldReadonly(formKey) ? true : null"
+        [style.pointer-events]="isFieldReadonly(formKey) ? 'none' : 'auto'"
+        [style.background-color]="isFieldReadonly(formKey) ? '#f5f5f5' : 'white'"
+      >         
+        <option value="">Selecciona un producto</option>         
+        @for(product of products; track product.id){         
+        <option [value]="product.id">           
+          {{ product.name }}         
+        </option>         
+        }       
+      </select>       
+      }       
+      @if(!getTypeByIdItemForm(formKey).includes("combo")){       
+      <input         
+        type="{{ getTypeByIdItemForm(formKey) }}"         
+        id="{{ formKey }}"         
+        formControlName="{{ formKey }}"         
+        [class.error]="isFieldInvalid(formKey)"
+        [readonly]="isFieldReadonly(formKey)"
+      />       
+      }       
+      @if(isFieldValidating(formKey)){       
+      <div class="validating-message">Validando...</div>       
+      } @else {       
+      @if(isFieldInvalid(formKey)){       
+      <div class="error-message">         
+        {{ getErrorMessage(formKey) }}       
+      </div>       
+      }       
+      }     
+    </div>     
+    }   
+  </section>    
+
+  <div class="transaction-form-buttons">     
+    <button type="button" (click)="onReset()">Reiniciar</button>     
+    <button type="submit" [disabled]="isSubmitDisabled()">Enviar</button>   
+  </div> 
+</form>

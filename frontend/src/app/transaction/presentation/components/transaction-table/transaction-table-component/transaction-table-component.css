@@ -1,0 +1,17 @@
+.transaction-table-wrapper {
+  position: relative;
+}
+
+.transaction-table-container {
+  background-color: var(--color-light);
+  padding: 22px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: auto hidden;
+}
+.transaction-table-content {
+  width: 1280px;
+  min-height: 300px;
+}

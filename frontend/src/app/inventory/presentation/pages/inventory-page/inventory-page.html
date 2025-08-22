@@ -1,0 +1,9 @@
+<page-layout-component>
+  <h1 class="text-4xl font-bold text-primary">Inventario</h1>
+  <h2 class="mb-5">Seleccione un modulo...</h2>
+  <section class="flex gap-4">
+    @for (section of sections; track section) {
+    <inventory-card [title]="section.label" [path]="section.path" />
+    }
+  </section>
+</page-layout-component>

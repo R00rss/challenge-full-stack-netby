@@ -1,0 +1,11 @@
+<tbody class="transaction-list-container">
+  @for (transaction of skeletonTransactions; track transaction) {
+  <tr class="transaction-list-item">
+    @for (column of numberOfColumns; track column) {
+    <td>
+      <span></span>
+    </td>
+    }
+  </tr>
+  }
+</tbody>

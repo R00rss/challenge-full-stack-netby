@@ -1,0 +1,15 @@
+<page-layout-component>
+  <core-button-back-component />
+  @if(loadingTransaction){
+  <p>Cargando...</p>
+  } @if(errorMessage && !loadingTransaction){
+  <p class="error-message">{{ errorMessage }}</p>
+  } @if(!errorMessage && !loadingTransaction && fondedTransaction){
+  <transaction-form
+    (onSubmitForm)="onSubmitForm($event)"
+    [formType]="'Editar'"
+    [products]="products"
+    [initTransaction]="fondedTransaction"
+  />
+  }
+</page-layout-component>

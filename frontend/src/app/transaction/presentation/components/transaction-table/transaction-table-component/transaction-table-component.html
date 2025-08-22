@@ -1,0 +1,30 @@
+<section class="transaction-table-wrapper">
+  <section class="transaction-table-container">
+    <section class="transaction-table-content">
+      <transaction-table-header-component />
+      @if(isLoadingTransactions){
+      <transaction-table-skeleton-component />
+      } @if(!isLoadingTransactions && !thereAreNotTransactions){
+      <transaction-table-body-component
+        [transactions]="transactions"
+        [options]="options"
+        (onOptionClick)="handleOptionClick($event)"
+      />
+      } @if(!isLoadingTransactions && thereAreNotTransactions){
+      <div class="no-transactions-message">No se encontraron transacciones</div>
+      }
+    </section>
+  </section>
+  <transaction-table-pagination
+    [pageSize]="pageSize"
+    [totalItems]="totalItems"
+    [currentPage]="currentPage"
+    [totalPages]="totalPages"
+    [hasNextPage]="hasNextPage"
+    [hasPreviousPage]="hasPreviousPage"
+    (onPageSizeChange)="handlePageSizeChange($event)"
+    (onPageChange)="handlePageChange($event)"
+    (onPageNext)="handlePageNext()"
+    (onPagePrevious)="handlePagePrevious()"
+  />
+</section>

@@ -1,0 +1,36 @@
+.transaction-list-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.transaction-list-item {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 2fr 1fr 3fr 1fr 2fr 1fr 4fr 60px;
+  gap: 16px;
+  padding: 5px 0px;
+  border-bottom: solid 2px var(--color-gray-medium);
+}
+
+.transaction-list-item > * {
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--color-dark);
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
+.transaction-list-item > * span {
+  width: 100%;
+  height: 35px;
+  background: #00000022;
+  border-radius: 10px;
+  animation: skeleton-loading 750ms infinite ease-in-out alternate;
+}
+
+@keyframes skeleton-loading {
+  to {
+    background: #00000010;
+  }
+}

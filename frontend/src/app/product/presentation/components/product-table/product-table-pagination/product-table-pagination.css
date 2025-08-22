@@ -1,0 +1,185 @@
+.pagination-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  font-size: 0.875rem;
+  background-color: var(--color-light);
+}
+
+.item-count {
+  color: #6b7280;
+  font-weight: 500;
+}
+
+/* Combo Box Styles */
+.combo-box-container {
+  position: relative;
+}
+
+.combo-box {
+  position: relative;
+  min-width: 60px;
+}
+
+.combo-box-selected {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  background: white;
+  cursor: pointer;
+  user-select: none;
+  transition: border-color 0.2s;
+}
+
+.combo-box-selected:hover {
+  border-color: #9ca3af;
+}
+
+.selected-value {
+  font-weight: 500;
+}
+
+.arrow {
+  margin-left: 0.5rem;
+  transition: transform 0.2s;
+  color: #6b7280;
+}
+
+.arrow-up {
+  transform: rotate(180deg);
+}
+
+.combo-box-options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  z-index: 50;
+  max-height: 200px;
+  overflow-y: auto;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: none;
+  margin-top: 0.25rem;
+}
+
+.combo-box-options.show {
+  display: block;
+}
+
+.combo-box-option {
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.combo-box-option:hover {
+  background-color: #f3f4f6;
+}
+
+.combo-box-option.selected {
+  background-color: #dbeafe;
+  color: var(--color-primary);
+  font-weight: 500;
+}
+
+/* Page Navigation Styles */
+.page-navigation {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.page-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.5rem;
+  height: 2.5rem;
+  padding: 0.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  background: white;
+  color: #374151;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  user-select: none;
+}
+
+.page-button:hover:not(:disabled) {
+  background-color: #f3f4f6;
+  border-color: #9ca3af;
+}
+
+.page-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  color: #9ca3af;
+}
+
+.page-button.active {
+  background-color: var(--color-secondary);
+  border-color: var(--color-secondary);
+  color: white;
+}
+
+.page-button.active:hover {
+  background-color: #2563eb;
+  border-color: #2563eb;
+}
+
+.prev-button,
+.next-button {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.ellipsis {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.5rem;
+  height: 2.5rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.page-info {
+  color: #6b7280;
+  font-weight: 500;
+  margin-left: auto;
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .pagination-container {
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: stretch;
+  }
+
+  .page-navigation {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .page-info {
+    margin-left: 0;
+    text-align: center;
+  }
+
+  .item-count {
+    text-align: center;
+  }
+}

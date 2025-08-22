@@ -1,0 +1,80 @@
+.product-form-wrapper {
+  max-width: 850px;
+  width: 95%;
+  margin-inline: auto;
+  background-color: var(--color-light);
+}
+
+.product-form-wrapper h2 {
+  font-size: 36px;
+  font-weight: 800;
+  text-align: center;
+  padding: 30px 50px;
+  border-bottom: 2px solid var(--color-gray-dark);
+}
+
+.product-form-groups-container {
+  padding: 30px 50px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px 30px;
+}
+
+@media (width < 750px) {
+  .product-form-groups-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+.product-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.product-form-group label {
+  font-weight: 800;
+}
+.product-form-group input {
+  padding: 10px;
+  border-radius: 4px;
+  border: 2px solid var(--color-gray-medium);
+}
+
+.error-message {
+  color: red;
+}
+.product-form-group:has(.error-message) input {
+  border: 2px solid red;
+  border-color: red;
+  outline-color: red;
+}
+
+.product-form-buttons {
+  padding: 30px 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 60px;
+}
+
+.product-form-buttons button {
+  font-size: 18px;
+  font-weight: 700;
+  padding: 14px 20px;
+  border: 1px solid var(--color-gray-light);
+  color: var(--color-light);
+  border-radius: 5px;
+  background-color: var(--color-secondary);
+  min-width: 140px;
+  cursor: pointer;
+}
+
+.product-form-buttons button[type="submit"] {
+  background-color: var(--color-primary);
+}
+
+.product-form-buttons button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

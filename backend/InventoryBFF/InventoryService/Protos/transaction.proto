@@ -1,0 +1,99 @@
+syntax = "proto3";
+
+option csharp_namespace = "InventoryService";
+
+package transactionservice_grpc;
+
+service TransactionServiceGRPC {
+  rpc GetTransactionById(GetTransactionByIdRequest) returns (TransactionResponse);
+  rpc GetTransactionsPaged(GetTransactionsPagedRequest) returns (PagedTransactionsResponse);
+  rpc GetTransactionsWithSortAndSearch(GetTransactionsWithSortAndSearchRequest) returns (PagedTransactionsResponse);
+  rpc CreateTransaction(CreateTransactionRequest) returns (TransactionResponse);
+  rpc UpdateTransaction(UpdateTransactionRequest) returns (TransactionResponse);
+  rpc DeleteTransaction(DeleteTransactionRequest) returns (DeleteTransactionResponse);
+  rpc GetAllQuantityByProductId(GetAllQuantityByProductIdRequest) returns (GetAllQuantityByProductIdResponse);
+}
+
+message Transaction {
+  string id = 1;
+  string transaction_date = 2;
+  string transaction_type = 3;
+  string product_id = 4;
+  int32 quantity = 5;
+  double unit_price = 6;
+  double total_price = 7;
+  string detail = 8;
+}
+
+message GetTransactionByIdRequest {
+  string id = 1;
+}
+
+message TransactionResponse {
+  bool success = 1;
+  string error_message = 2;
+  Transaction transaction = 3;
+}
+
+message GetTransactionsPagedRequest {
+  int32 page = 1;
+  int32 page_size = 2;
+}
+
+message GetTransactionsWithSortAndSearchRequest {
+  int32 page = 1;
+  int32 page_size = 2;
+  string sort_column = 3;
+  string sort_direction = 4;
+  string search_term = 5;
+}
+
+message PagedTransactionsResponse {
+  bool success = 1;
+  string error_message = 2;
+  repeated Transaction transactions = 3;
+  int32 total_count = 4;
+  int32 page = 5;
+  int32 page_size = 6;
+  int32 total_pages = 7;
+  bool has_next_page = 8;
+  bool has_previous_page = 9;
+}
+
+message CreateTransactionRequest {
+  string transaction_date = 1;
+  string transaction_type = 2;
+  string product_id = 3;
+  int32 quantity = 4;
+  double unit_price = 5;
+  double total_price = 6;
+  string detail = 7;
+}
+
+message UpdateTransactionRequest {
+  string id = 1;
+  string transaction_date = 2;
+  string transaction_type = 3;
+  string product_id = 4;
+  int32 quantity = 5;
+  double unit_price = 6;
+  double total_price = 7;
+  string detail = 8;
+}
+
+message DeleteTransactionRequest {
+  string id = 1;
+}
+
+message DeleteTransactionResponse {
+  bool success = 1;
+  string error_message = 2;
+}
+
+message GetAllQuantityByProductIdRequest {
+  string product_id = 1;
+}
+
+message GetAllQuantityByProductIdResponse{
+  int32 quantity = 1;
+}

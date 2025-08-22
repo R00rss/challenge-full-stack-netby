@@ -1,0 +1,6 @@
+# for .net projects and angular
+bin/
+obj/
+wwwroot/
+node_modules/
+dist/

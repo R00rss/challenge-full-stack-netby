@@ -1,0 +1,13 @@
+<div class="layout-container">
+  <header class="layout-header bg-gradient-to-r from-primary/10 to-secondary">
+    <img src="/assets/netby-logo.png" alt="netby logo" class="logo" />
+  </header>
+  <div class="layout-body">
+    <main class="layout-main">
+      <ng-content></ng-content>
+    </main>
+  </div>
+  <footer class="layout-footer">
+    <ng-content select="[slot=footer]"></ng-content>
+  </footer>
+</div>

@@ -1,0 +1,29 @@
+.layout-container{
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+.layout-body {
+  background-image: url('/assets/bg-netby.png');
+  background-size: cover;
+  background-position: 70%;
+  height: 100%;
+  flex-grow: 1;
+}
+.layout-main {
+  padding-top: 40px;
+  max-width: 1280px;
+  width: 95%;
+  margin-inline: auto;
+}
+
+.layout-header {
+  padding-top: 18px;
+  padding-bottom: 18px;
+}
+.layout-header img {
+  width: 180px;
+  object-fit: contain;
+  margin-left: 20px;
+}
